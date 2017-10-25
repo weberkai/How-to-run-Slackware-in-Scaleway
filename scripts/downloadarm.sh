@@ -30,7 +30,7 @@ bin-11.1-arm-3.txz
 bind-9.10.5_P3-arm-1_slack14.2.txz
 bzip2-1.0.6-arm-3.txz
 coreutils-8.25-arm-2.txz
-curl-7.55.0-arm-1_slack14.2.txz
+curl-7.56.1-x86_64-1_slack14.2.txz
 cyrus-sasl-2.1.26-arm-1.txz
 dbus-1.10.8-arm-2_slack14.2.txz
 dcron-4.5-arm-5.txz
