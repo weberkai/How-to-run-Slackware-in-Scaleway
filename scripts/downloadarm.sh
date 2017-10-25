@@ -126,34 +126,34 @@ do
 			PKGS=$(wget --no-check-certificate -qO- ${MIRROR}${PKGSFILE})
 			for PKG in $SL_PKGSLIST
 			do
-				if [ -e $DIRECTORY/$PKG ]
+				if [ ! -e $DIRECTORY/$PKG ]
 				then
-					PATH=/
+					REMOTEPATH=/
 					MATCH=$(echo "$PKGS" | grep -A9 $PKG | grep -E 'PACKAGE NAME|PACKAGE LOCATION')
 					MATCHQT=$(echo "$MATCH" | wc -l)
 					if [ "$MATCHQT" == "2" ]
 					then
-						PATH=$(echo "$MATCH" | xargs | awk '{print $6"/"$3}')
+						REMOTEPATH=$(echo "$MATCH" | xargs | awk '{print $6"/"$3}')
 					else
 						if [ "$MATCHQT" != "1" ]
 						then
 							for VERSION in $SL_VERSION
 							do
-								if [ "$PATH" == "/" ]
+								if [ "$REMOTEPATH" == "/" ]
 								then
 									MATCH2=$(echo "$MATCH" | grep -B1 $VERSION)
 									MATCHQT2=$(echo "$MATCH2" | wc -l)
 									if [ "$MATCHQT2" == "2" ]
 									then
-										PATH=$(echo "$MATCH2" | xargs | awk '{print $6"/"$3}')
+										REMOTEPATH=$(echo "$MATCH2" | xargs | awk '{print $6"/"$3}')
 									fi
 								fi
 							done
 						fi
 					fi
-					if [ "$PATH" != "/" ]
+					if [ "$REMOTEPATH" != "/" ]
 					then
-						wget --no-check-certificate -P $DIRECTORY ${MIRROR}${PATH} 2>/dev/null
+						wget --no-check-certificate -P $DIRECTORY ${MIRROR}${REMOTEPATH} 2>/dev/null
 					fi
 				fi
 			done
