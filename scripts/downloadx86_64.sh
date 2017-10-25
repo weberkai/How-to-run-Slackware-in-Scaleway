@@ -3,9 +3,10 @@
 DIRECTORY=packages
 
 SL_PKGSFILES="
-slackware64/PKGS.TXT
-patches/PKGS.TXT
-PKGS.TXT
+slackware64/PACKAGES.TXT
+slackware/PACKAGES.TXT
+patches/PACKAGES.TXT
+PACKAGES.TXT
 "
 
 SL_VERSION="
