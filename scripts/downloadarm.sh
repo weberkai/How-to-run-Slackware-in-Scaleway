@@ -2,10 +2,10 @@
 
 DIRECTORY=packages
 
-SL_PACKAGESPKGS="
-slackware/PACKAGES.TXT
-patches/PACKAGES.TXT
-PACKAGES.TXT
+SL_PKGSFILES="
+slackware/PKGS.TXT
+patches/PKGS.TXT
+PKGS.TXT
 "
 
 SL_VERSION="
@@ -18,7 +18,7 @@ SL_VERSION="
 "
 
 # Slackware minimal package list:
-SL_PKGLIST="
+SL_PKGSLIST="
 aaa_base-14.2-arm-1.txz
 aaa_elflibs-14.2-arm-19.txz
 aaa_terminfo-5.8-arm-1.txz
@@ -111,7 +111,7 @@ fi
 for MIRROR in $SL_MIRRORS
 do
 	RUN=0
-	for PKG in $SL_PKGLIST
+	for PKG in $SL_PKGSLIST
 	do
 		if [ ! -e $DIRECTORY/$PKG ]
 		then
@@ -120,15 +120,15 @@ do
 	done
 	if [ "$RUN" == "1" ]
 	then
-		for PACKAGESPKG in $SL_PACKAGESPKGS
+		for PKGSFILE in $SL_PKGSFILES
 		do
-			PACKAGES=$(wget --no-check-certificate -qO- ${MIRROR}${PACKAGESPKG})
-			for PKG in $SL_PKGLIST
+			PKGS=$(wget --no-check-certificate -qO- ${MIRROR}${PKGSFILE})
+			for PKG in $SL_PKGSLIST
 			do
 				if [ -e $DIRECTORY/$PKG ]
 				then
 					PATH=/
-					MATCH=$(echo "$PACKAGES" | grep -A9 $PKG | grep -E 'PACKAGE NAME|PACKAGE LOCATION')
+					MATCH=$(echo "$PKGS" | grep -A9 $PKG | grep -E 'PACKAGE NAME|PACKAGE LOCATION')
 					MATCHQT=$(echo "$MATCH" | wc -l)
 					if [ "$MATCHQT" == "2" ]
 					then
